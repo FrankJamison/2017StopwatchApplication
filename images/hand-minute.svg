@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="292" viewBox="0 0 40 292">
+    <defs>
+        <linearGradient id="ink" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#0B0B0C" />
+            <stop offset="45%" stop-color="#2A2B2E" />
+            <stop offset="55%" stop-color="#0B0B0C" />
+            <stop offset="100%" stop-color="#0B0B0C" />
+        </linearGradient>
+        <linearGradient id="hi" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35" />
+            <stop offset="25%" stop-color="#FFFFFF" stop-opacity="0.10" />
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+        </linearGradient>
+        <filter id="shadow" x="-30%" y="-10%" width="160%" height="140%">
+            <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.25" />
+        </filter>
+    </defs>
+
+    <!-- Hand is drawn from near top down toward center; rotation uses bottom as pivot -->
+    <g filter="url(#shadow)">
+        <!-- main body -->
+        <path
+            d="M20 18
+             C26 18 30 24 30 30
+             L30 255
+             C30 270 24 283 20 292
+             C16 283 10 270 10 255
+             L10 30
+             C10 24 14 18 20 18Z"
+            fill="url(#ink)" />
+
+        <!-- center spine highlight -->
+        <path
+            d="M20 26
+             C22 26 23 28 23 30
+             L23 246
+             C23 258 21 270 20 278
+             C19 270 17 258 17 246
+             L17 30
+             C17 28 18 26 20 26Z"
+            fill="url(#hi)" opacity="0.65" />
+
+        <!-- pointed tip (more realistic) -->
+        <path d="M20 6 L27 22 C24 20 16 20 13 22 Z" fill="#0B0B0C" />
+    </g>
+
+</svg>

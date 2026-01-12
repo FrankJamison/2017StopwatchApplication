@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#070B14" />
+    <title>Stopwatch & Countdown Timer (UI v2026-01-11)</title>
+    <script type="text/javascript" src="js/myScript.js?v=20260111x" defer></script>
+    <link rel="stylesheet" type="text/css" href="css/myStyles.css?v=20260111aa">
+</head>
+
+<body>
+    <div class="bg" aria-hidden="true"></div>
+
+    <main id="container" class="app" role="main">
+        <header class="appHeader">
+            <div class="brand">
+                <div class="brandMark" aria-hidden="true"></div>
+                <div>
+                    <h1 class="appTitle">Time Tools</h1>
+                    <p class="appSubtitle">Stopwatch + Countdown, in hundredths</p>
+                </div>
+            </div>
+
+            <div class="headerActions" aria-label="App toolbar">
+                <div class="tabs" role="tablist" aria-label="Views">
+                    <button class="tab tabActive" type="button" role="tab" aria-selected="true">Timers</button>
+                    <button class="tab" type="button" role="tab" aria-selected="false">History</button>
+                    <button class="tab" type="button" role="tab" aria-selected="false">Settings</button>
+                </div>
+
+                <div class="chips" aria-label="Status">
+                    <span class="chip chipSw"><span class="dot" aria-hidden="true"></span>Stopwatch</span>
+                    <span class="chip chipCd"><span class="dot" aria-hidden="true"></span>Countdown</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="grid" aria-label="Timers">
+            <section id="stopWatch" class="card" aria-label="Stopwatch">
+                <div class="cardHeader">
+                    <h2 class="cardTitle">Stopwatch</h2>
+                    <p class="cardHint">Counts up • mm:ss:hh</p>
+                </div>
+
+                <div class="analogBlock">
+                    <div class="analogFace" role="img" aria-label="Analog stopwatch face">
+                        <div class="analogTicks" aria-hidden="true"></div>
+
+                        <div id="swHandMinute" class="hand handSeconds" aria-hidden="true"></div>
+                        <div id="swHandSecond" class="hand handMillis" aria-hidden="true"></div>
+                        <div id="swHandCenti" class="hand handMinutesSubdial" aria-hidden="true"></div>
+
+                        <div class="handCap" aria-hidden="true"></div>
+                    </div>
+
+                    <div class="displayLabel">Elapsed</div>
+                    <div class="display displaySmall" id="stopWatchOutput" aria-live="polite">00:00:00</div>
+                </div>
+
+                <div id="stopWatchControls" class="controls">
+                    <button class="btn btnPrimary" id="startStop" onclick="startWatch();" type="button">
+                        <span class="btnIcon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 7.5V16.5L17 12L9 7.5Z" fill="currentColor" />
+                            </svg>
+                        </span>
+                        <span class="btnText">Start</span>
+                    </button>
+                    <button class="btn btnGhost" id="watchReset" onclick="watchReset();" type="button">
+                        <span class="btnIcon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 12a8 8 0 1 1-2.34-5.66" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                <path d="M20 4v6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                        Clear
+                    </button>
+                </div>
+            </section>
+
+            <section id="countdownTimer" class="card" aria-label="Countdown Timer">
+                <div class="cardHeader">
+                    <h2 class="cardTitle">Countdown</h2>
+                    <p class="cardHint">Counts down • max 10:00:00</p>
+                </div>
+
+                <label class="field" for="timeEntered">
+                    <span class="fieldLabel">Start time</span>
+                    <div class="fieldRow">
+                        <input class="input" type="text" id="timeEntered" inputmode="numeric" autocomplete="off" placeholder="mm:ss:hh (e.g., 01:30:00)" aria-describedby="timeHelp timeAlert" />
+                        <button class="btn btnPrimary" id="startPause" onclick="startTimer();" type="button">
+                            <span class="btnIcon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 7.5V16.5L17 12L9 7.5Z" fill="currentColor" />
+                                </svg>
+                            </span>
+                            <span class="btnText">Start</span>
+                        </button>
+
+                        <button class="btn btnGhost" id="timerReset" onclick="timerReset();" type="button">
+                            <span class="btnIcon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 12a8 8 0 1 1-2.34-5.66" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M20 4v6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                            Clear
+                        </button>
+                    </div>
+                    <span class="fieldHelp" id="timeHelp">Format must be exactly <strong>mm:ss:hh</strong> (leading zeros required).</span>
+                    <span id="timeAlert" class="alert" role="status" aria-live="polite"></span>
+                </label>
+
+                <div class="displayLabel">Time remaining</div>
+                <div class="display displayDigital" id="countdownTimerOutput" aria-live="polite">00:00:00</div>
+            </section>
+        </section>
+
+        <footer class="appFooter">
+            <span class="footerText">Tip: press <kbd>Enter</kbd> to start/pause the countdown. <span class="versionTag">UI v2026-01-11</span></span>
+        </footer>
+    </main>
+
+    <section id="debugOutput" class="debug hidden" aria-label="Debug Output Data">
+        <div class="debugInner">
+            <header class="debugHeader">
+                <h2 class="debugTitle">Debug Output</h2>
+                <button id="exitDebugMode" class="btn btnGhost" onclick="if (typeof exitDebugMode === 'function') exitDebugMode(); return false;" type="button">
+                    Exit Debug Mode
+                </button>
+            </header>
+        </div>
+    </section>
+
+</body>
+
+</html>
