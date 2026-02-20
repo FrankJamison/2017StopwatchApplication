@@ -4,6 +4,10 @@ A polished single-page Stopwatch + Countdown Timer built with plain HTML/CSS/Jav
 
 No dependencies, no build step—open it in a browser or serve it from any static web server.
 
+## Live preview
+
+https://stopwatch.fcjamison.com/
+
 ## Features
 
 ### Stopwatch
